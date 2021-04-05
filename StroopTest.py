@@ -53,16 +53,16 @@ def stroopTest(win):
 def main():
 
     # Introduction and Instructions
-    space_phrase = "\n\n\n Press space to continue"
+    space_phrase = "\n\n\n Press [space] to continue."
     welcome_text_1 = "Welcome to the Stroop Test developed for the Psych 363 Final Project" + space_phrase
     welcome_text_2 = "In this test you will type the key that corresponds to the colour of the font" + space_phrase
     welcome_text_3 = "Type 'b' for blue\nType 'r' for red\nType 'y' for yellow\nType 'g' for green" + space_phrase
-    welcome_text_4 = "Now let's due a sample test, for the test type the key that corresponds to the colour of the " \
+    welcome_text_4 = "Now let's do a sample test. For the test type the key that corresponds to the colour of the " \
                      "font" + space_phrase
-    welcome_text_5 = "For the sample after this page we press 'r' because the colour of the font is red" + space_phrase
-    welcome_text_6 = "For the sample after this page we press 'b' because the colour of the font is blue" + space_phrase
-    welcome_text_7 = "Okay, we've gone over everything now get ready and once you press space the test beings! " \
-                     "we test 20 times so it'll take about a minute or two" + space_phrase
+    welcome_text_5 = "For the sample after this page we press 'r' because the colour of the font is red." + space_phrase
+    welcome_text_6 = "For the sample after this page we press 'b' because the colour of the font is blue." + space_phrase
+    welcome_text_7 = "Okay, we've gone over everything. Now get ready, and once you press [space] the test beings! " \
+                     "We test 20 times, so it'll take about a minute or two." + space_phrase
 
     win = visual.Window([800, 800], color=[-1, -1, -1])
 
