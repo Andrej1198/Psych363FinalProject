@@ -84,7 +84,7 @@ def main():
     drawitintro(win, welcome_text_7)
 
     # Test begins here
-    for i in range(2):
+    for i in range(20):
         timing_info = stroopTest(win)
         if timing_info[0] is None:
             continue
