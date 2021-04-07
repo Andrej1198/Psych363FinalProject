@@ -2,6 +2,8 @@ from psychopy import visual, core, event
 import random
 import pandas as pd
 import datetime
+import os
+import re
 
 def drawitintro(win, text, text_colour=[255, 255, 255], key='space'):
     message = visual.TextStim(win, text=text, color=text_colour)
@@ -82,7 +84,7 @@ def main():
     drawitintro(win, welcome_text_7)
 
     # Test begins here
-    for i in range(20):
+    for i in range(2):
         timing_info = stroopTest(win)
         if timing_info[0] is None:
             continue
@@ -93,7 +95,8 @@ def main():
         append_element = {'Word': word, 'Ink': ink, 'Response Time': response_time, 'Correct': pressed_key == ink}
         df = df.append(append_element, ignore_index=True)
     now = datetime.datetime.now()
-    file_name = 'stroop_{}_{}_{}_{}.csv'.format(now.day, now.hour, now.minute, now.second)
+    name = re.findall("home/(\w+)/", os.getcwd())[0]
+    file_name = '{}_stroop_{}_{}_{}_{}.csv'.format(name, now.day, now.hour, now.minute, now.second)
     df.to_csv(file_name, index=False)
 
 if __name__ == "__main__":
