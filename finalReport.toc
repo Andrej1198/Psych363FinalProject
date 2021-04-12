@@ -1,0 +1,6 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Methods}{1}{section.2}%
+\contentsline {section}{\numberline {3}Results}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Descriptive statistics}{2}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Discussion and Conclusions}{2}{section.4}%
+\contentsline {section}{\numberline {5}References}{2}{section.5}%

@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+
+\bibitem{MacLeod1991Stroop}
+Colin~M. MacLeod.
+\newblock Half a century of research on the stroop effect: An integrative
+  review.
+\newblock {\em Psychological Bulletin}, 109:163--203, 1991.
+
+\bibitem{Peirce2019Psychopy}
+Jonathan Peirce, Jeremy~R. Gray, Sol Simpson, Michael MacAskill, Richard
+  Höchenberger, Hiroyuki Sogo, Erik Kastman, and Jonas~Kristoffer Lindeløv.
+\newblock Psychopy2: Experiments in behavior made easy.
+\newblock {\em Behavior Research Methods}, 51:195--203, 2019.
+
+\bibitem{PsytoolkitStroopDemo}
+Gijsbert Stoet.
+\newblock Stroop task demo.
+\newblock \url{https://www.psytoolkit.org/experiment-library/stroop.html}.
+\newblock Accessed: 2021-04-12.
+
+\bibitem{Stroop1935}
+J.~Ridley Stroop.
+\newblock Studies of interference in serial verbal reactions.
+\newblock {\em Journal of Experimental Psychology}, 18:643--662, 1935.
+
+\end{thebibliography}
