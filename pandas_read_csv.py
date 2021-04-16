@@ -13,5 +13,6 @@ data = pd.DataFrame()
 for file in csv_files:
     data = data.append(pd.read_csv(file))
 
+pd.set_option('display.max_rows', None)
 print(data)
 # Data is a pandas dataframe that has all the data from the csv files merged into 1 big data frame

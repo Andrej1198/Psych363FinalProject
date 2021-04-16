@@ -4,8 +4,7 @@
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:t todo:t |:t
 #+title: 363 Final Report: Stroop test
-
-#+author: Andrej Glavic, Yuanxi Liu, Rachel Morton 20925026, Wasam Syed 20746474, Amy Wang
+#+author: Andrej Glavic, Yuanxi Liu 20688855, Rachel Morton 20925026, Wasam Syed 20746474, Amy Wang
 #+email: r3morton@uwaterloo.ca
 #+language: en
 #+select_tags: export
@@ -33,8 +32,50 @@ Computational tools used? R??
 
 ** Results
 
+*** 1. Collect data into a dataframe:
+
+#+BEGIN_SRC python :results output :session *StroopData*
+import pandas_read_csv.py as data
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Python 3.8.5 (default, Jan 27 2021, 15:41:15) 
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+Word Ink  Response Time  Correct
+0     g   b       0.902731      1.0
+1     g   g       0.757359      1.0
+2     b   y       0.914164      1.0
+3     r   b       0.928025      1.0
+4     b   b       0.566040      1.0
+..  ...  ..            ...      ...
+15    r   y       1.873278      1.0
+16    y   y       1.865308      1.0
+17    y   r       1.841314      1.0
+18    b   b       1.498685      1.0
+19    y   y       2.081316      1.0
+
+[179 rows x 4 columns]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'pandas_read_csv.py'; 'pandas_read_csv' is not a package
+#+end_example
+
+
+
 *** Descriptive statistics
 [##] participants completed [##] trials.
+
+#+BEGIN_SRC python :session *StroopData* :exports both :results output
+data.mean()
+#+END_SRC
+
+#+RESULTS:
+: Traceback (most recent call last):
+:   File "<stdin>", line 1, in <module>
+: NameError: name 'data' is not defined
+
 
 
 [Include code]
