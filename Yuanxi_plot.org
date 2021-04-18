@@ -1,0 +1,69 @@
+In this experiment,we are studying how the response time two groups of participants spent in the face of congruent stimulus and incongruent stimulus.
+Besides we are also interested in the correct rate of answering  between the two groups.
+
+Steps:
+1.Firstly we’ve screened out the wrong or extra individual cases from participants in order to keep the same numbers in two group(100 per group)check
+the Independent-Sample T-Test.On the basis of relevant documents,we make the Null hypothesis and the Alternate hypothesis as following:
+H0:There is no difference between the mean response time for congruent stimulus group compare to incongruent  stimulus group.
+Ha:There is a difference between the mean response time for congruent stimulus group compare to incongruent stimulus group.
+2.We are supposed to compare the correct rate between the two groups without deleting any individual cases.
+
+Results:
+Table 1 Descriptive Statistics
+   Different groups  	 N	    Mean of response time
+  Congruent stimulus	100	        0.84645023
+  Incongruent stimulus	100	        0.96180698
+
+Table 2 Independent Samples Test
+	             df	    t	  Sig. (2-tailed)	 Std.Error Difference
+  Response time	 198   -3.202	    0.002	           0.036024650
+
+Table 3 Correct rate in different groups
+                 Congruent stimulus	Incongruent stimulus
+  Correct ones	         166	             100
+      Total 	         178	             101
+  Correct rate	         0.93	             0.99
+
+Analysis summary
+From the Table 2,t(198)=3.2,P=.002<.05,so we are safe to reject the Null hypothesis and get the conclusion that there is a significant difference between
+the mean response time for 	congruent stimulus group compare to incongruent stimulus group.Besides, Table 1 shows that the Incongruent stimulus group keeps
+the larger mean of 0.962 than the other one of 0.846.In other words,people do spend more time when meeting the condition of Incongruent stimulus.
+
+Table 3 illustrated that the correct rate of congruent group is lower than the value of incongruent group.
+
+
+
+The Following Code:
+
+
+import pandas as pd
+d = pd.read_csv("therms.csv")
+d.columns
+
+from statsmodels.graphics.factorplots import interaction_plot
+from matplotlib import pyplot as plt
+
+fig = interaction_plot(d['number'],d['status'],d['time'])
+plt.xticks([])
+plt.xlabel("")
+plt.savefig("congruent-incongruent.png")
+
+from statsmodels.formula.api import ols
+ols_d = ols(formula = "time ~ number * status",data = d)
+myfits = ols_d.fit()
+plt.clf()
+f = plt.figure()
+a = f.gca()
+
+ip1 = interaction_plot(d['number'], d['status'], myfits.fittedvalues, plottype="line",ax = a,)
+
+ip2 = interaction_plot(d['number'], d['status'], d['time'], plottype='scatter',ax = a,)
+lines, labels = f.axes[0].get_legend_handles_labels()
+a.legend_ = None
+
+f.legend(lines[0:2], labels[0:2], loc = 'upper left', bbox_to_anchor=(0.15,0.85))
+plt.xticks([])
+plt.xlabel("")
+plt.savefig("congruent-incongruent-line.png")
+
+
