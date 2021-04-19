@@ -4,7 +4,7 @@
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:t todo:t |:t
 #+title: 363 Final Report: Stroop test
-#+author: Andrej Glavic, Yuanxi Liu 20688855, Rachel Morton 20925026, Wasam Syed 20746474, Amy Wang
+#+author: Andrej Glavic 20675512, Yuanxi Liu 20688855, Rachel Morton 20925026, Wasam Syed 20746474, Amy Wang
 #+email: r3morton@uwaterloo.ca
 #+language: en
 #+select_tags: export
@@ -18,6 +18,8 @@
 #+keywords:
 #+subtitle:
 #+latex_compiler: pdflatex
+
+
 #+date: \today
 
 ** Introduction
@@ -28,18 +30,18 @@ In one part of Stroop's classic study, participants had to say the ink colour of
 ** Methods
 There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. 
 
-Computational tools used? R??
+We used Python as our computational tool
 
 ** Results
 
 ***  Collect data into a dataframe:
 
 In this section we do the following 2 things.
-First, we import all the relavent libraries that we need for any code to run
-Second, we itterate through all the csv files and merge them into one big pandas dataframe
+First, we import all the relavent libraries that we need for any code to run.
+Second, we itterate through all the csv files and merge them into one big pandas
+data frame called  data.
 
-
-#+BEGIN_SRC python :session *StroopData* :exports both :results output 
+#+BEGIN_SRC python :session *StroopData* :exports both :results output
 #graphics :file "StroopPlot.png"
 import pandas as pd
 import os
@@ -61,11 +63,22 @@ pd.set_option('display.max_rows', None)
 #+END_SRC
 
 #+RESULTS:
+: Python 3.8.5 (default, Jan 27 2021, 15:41:15) 
+: [GCC 9.3.0] on linux
+: Type "help", "copyright", "credits" or "license" for more information.
 
 #+latex: \pagebreak
+#+latex: \setlength{\voffset}{-0.75in}
 
 
 *** Scatter Plot with Line of Best fit
+
+The code below shows us creating a scatter plot.
+The scatter plot below shows the relationship between occurence in the test and reaction time.
+The x-axis represents the occurence within the test, when you run our Stroop test you have to 
+react to 20 congruent or incongruent tests, each test is mapped to an occurence in the stroop test 
+ranging from 1 to 20 and that number coordinates to the value in the x-axis. The y-axis cooresponds to 
+the response time in miliseconds. Only correct responses were plotted. We noticed that the response time was not very coorilated with the occurence in the stroop test, the only differentiator was the congruency, with congruent stroop tests having a noticibly smaller response time than incongruent stroop tests. Below we have the code we used to generate the plot and on the next page we have the plot itself which clearly differentiates between the congruent and incongruent responses and also shows a line of best fit for each congruency type.
 
 #+BEGIN_SRC python :session *StroopData* :exports both :results value file 
 #output graphics :file "StroopPlotScatter.jpg"
@@ -103,8 +116,12 @@ plt.savefig("StroopPlotScatter.jpg")
 #+RESULTS:
 [[file:StroopPlotScatter.jpg]]
 
+#+latex: \pagebreak
+
 
 *** Correct Stroop Responses and Calculated Average Response Time
+
+In this section we calculate the average response time of the responses for both congruent and incongruent cases. We only consider cases where we correctly clicked the right key. Below is the code we used to calculate the average response time and below that we have the plot that illustrates the difference in the average response time.
 
 #+BEGIN_SRC python :session *StroopData* :exports both :results value file 
 #output graphics :file "StroopPlotAverage.jpg"
@@ -113,7 +130,7 @@ congruent = np.array([])
 incongruent = np.array([])
 for i in data.iterrows():
     if i[1]['Correct']:
-        if i[1]['Word'] != i[1]['Ink']:
+        if i[1]['Word'] == i[1]['Ink']:
             congruent = np.append(congruent, i[1]['Response Time'])
         else:
             incongruent = np.append(incongruent, i[1]['Response Time'])
@@ -122,7 +139,7 @@ width = 0.35
 state = ('Congruent', 'Incongruent')
 state_average = (np.average(congruent)*1000, np.average(incongruent)*1000)
 fig, ax = plt.subplots()
-rects = ax.bar(np.arange(2)+width, state_average, width, color='b')
+rects = ax.bar(np.arange(2)+width, state_average, width, color='g')
 ax.set_ylabel('Response Time (ms)')
 ax.set_title('Response Time based on Congruency')
 ax.set_xticks(np.arange(2)+width)
@@ -135,13 +152,15 @@ plt.savefig("StroopPlotAverage.jpg")
 #+RESULTS:
 [[file:StroopPlotAverage.jpg]]
 
+#+latex: \pagebreak
 
-*** Incorrect Stroop Responses Analysis
 
-#+BEGIN_SRC python :session *StroopData* :exports both :results value file 
+*** Total Incorrect Stroop Responses Analysis
+
+The final graph we include here is the incorrect responses made. We found out that our group had a significantly higher chance of making a mistake on on incongruent cases versus congruent cases. For our group there were 8 times as many incorrect keystrokes made for incongruent cases in comparison to congruent cases.
+
+#+BEGIN_SRC python :session *StroopData* :exports both :results value file
 #output graphics :file "StroopPlotIncorrect.jpg"
-
-
 congruent_wrong = 0
 incongruent_wrong = 0
 for i in data.iterrows():
@@ -156,7 +175,7 @@ state = ('Congruent', 'Incongruent')
 wrong_count  = (congruent_wrong, incongruent_wrong)
 fig, ax = plt.subplots()
 rects = ax.bar(np.arange(2)+width, wrong_count, width, color='r')
-ax.set_ylabel('Incorrect Responses')
+ax.set_ylabel('Total Incorrect Responses')
 ax.set_title('Incorrect Responses Based on Congruency')
 ax.set_xticks(np.arange(2)+width)
 ax.set_xticklabels(('Congruent', 'Incongruent'))
@@ -168,8 +187,13 @@ plt.savefig("StroopPlotIncorrect.jpg")
 #+RESULTS:
 [[file:StroopPlotIncorrect.jpg]]
 
+#+latex: \pagebreak
+
 
 *** Descriptive statistics
+
+src_python[:session *StroopData* :exports results :results raw]{data.shape}
+
 [##] participants completed [##] trials.
 
 [Include code]
@@ -183,9 +207,10 @@ We calculated the Stroop effect as the average response time for correct, incong
 
 [PLOT]
 
+
 ** Discussion and Conclusions
  
-Our experiment takes less than two minutes to complete. It requires pressing the appropriate keyboard key rather than naming the colour aloud as Stroop did originally \cite{Stroop1935}. In our test, there are only 20 trials and a handful [##?] of participants. For a more reliable measure of the Stroop effect you would want to have considerably more participants along with more trials.
+Our experiment takes less than two minutes to complete. It requires pressing the appropriate keyboard key rather than naming the colour aloud as Stroop did originally \cite{Stroop1935}. In our test, there are only 20 trials and 5 of participants. For a more reliable measure of the Stroop effect you would want to have considerably more participants along with more trials.
 
 ** References
 
