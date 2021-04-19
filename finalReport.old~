@@ -4,7 +4,7 @@
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:t todo:t |:t
 #+title: 363 Final Report: Stroop test
-#+author: Andrej Glavic, Yuanxi Liu 20688855, Rachel Morton 20925026,@@latex:\\@@ Wasam Syed 20746474, Amy Wang
+#+author: Andrej Glavic, Yuanxi Liu 20688855, Rachel Morton 20925026, Wasam Syed 20746474, Amy Wang
 #+email: r3morton@uwaterloo.ca
 #+language: en
 #+select_tags: export
@@ -26,66 +26,55 @@ John Ridley Stroop published the groundbreaking, "Studies of interference in ser
 In one part of Stroop's classic study, participants had to say the ink colour of the printed word rather than read the word. For instance, if the word 'RED' was printed in purple ink, they were to say, "purple" and not "red". Stroop noticed that subjects took significantly longer to complete this colour naming task than one where they just had to name the colour of coloured squares. This difference in response time, or processing speed, is what is known as the Stroop effect.
 
 ** Methods
-There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. We used Python to analyze the data and plot the results. 
+There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. 
+
+Computational tools used? R??
 
 ** Results
 
 *** 1. Collect data into a dataframe:
 
-#+BEGIN_SRC python :session *StroopData* :exports both :results output 
-import pandas as pd
-import os
-import numpy as np
-import matplotlib.pyplot as plt
-
-files = os.listdir()
-
-# Identify all csv files in the directory
-csv_files = []
-for file in files:
-    if file[-4:] == ".csv":
-        csv_files.append(file)
-data = pd.DataFrame()
-for file in csv_files:
-    data = data.append(pd.read_csv(file))
-
-pd.set_option('display.max_rows', None)
-print(data)
-#+END_SRC
-
-
-#+BEGIN_SRC python :session *StroopData* :exports both :results value file 
-# Average Congruent vs Incongruent Time
-congruent = np.array([])
-incongruent = np.array([])
-for i in data.iterrows():
-    if i[1]['Correct']:
-        if i[1]['Word'] != i[1]['Ink']:
-            congruent = np.append(congruent, i[1]['Response Time'])
-        else:
-            incongruent = np.append(incongruent, i[1]['Response Time'])
-
-print(np.average(congruent))
-print(np.average(incongruent))
-print("DONE")
-
-fig = plt.figure()
-ax = fig.add_axes([0,0,1,1])
-state = ['Congruent', 'Incongruent']
-average = [np.average(congruent)*1000, np.average(incongruent)*1000]
-ax.bar(state, average)
-#plt.show()
-plt.savefig("/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg")
-"/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg"
+#+BEGIN_SRC python :results output :session *StroopData*
+import pandas_read_csv.py as data
 #+END_SRC
 
 #+RESULTS:
-[[file:/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg]]
+#+begin_example
+Python 3.8.5 (default, Jan 27 2021, 15:41:15) 
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+Word Ink  Response Time  Correct
+0     g   b       0.902731      1.0
+1     g   g       0.757359      1.0
+2     b   y       0.914164      1.0
+3     r   b       0.928025      1.0
+4     b   b       0.566040      1.0
+..  ...  ..            ...      ...
+15    r   y       1.873278      1.0
+16    y   y       1.865308      1.0
+17    y   r       1.841314      1.0
+18    b   b       1.498685      1.0
+19    y   y       2.081316      1.0
 
+[179 rows x 4 columns]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'pandas_read_csv.py'; 'pandas_read_csv' is not a package
+#+end_example
 
 
 *** Descriptive statistics
 [##] participants completed [##] trials.
+
+#+BEGIN_SRC python :session *StroopData* :exports both :results output
+data.mean()
+#+END_SRC
+
+#+RESULTS:
+: Traceback (most recent call last):
+:   File "<stdin>", line 1, in <module>
+: NameError: name 'data' is not defined
+
 
 [Include code]
 
@@ -105,5 +94,4 @@ Our experiment takes less than two minutes to complete. It requires pressing the
 ** References
 
 #+latex: \bibliography{finalReportBib}
-
 

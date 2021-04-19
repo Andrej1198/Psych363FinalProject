@@ -1,7 +1,10 @@
 \contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
 \contentsline {section}{\numberline {2}Methods}{2}{section.2}%
 \contentsline {section}{\numberline {3}Results}{2}{section.3}%
-\contentsline {subsection}{\numberline {3.1}1. Collect data into a dataframe:}{2}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Descriptive statistics}{12}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Discussion and Conclusions}{12}{section.4}%
-\contentsline {section}{\numberline {5}References}{13}{section.5}%
+\contentsline {subsection}{\numberline {3.1}Collect data into a dataframe:}{2}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Descriptive statistics}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Scatter Plot with Line of Best fit}{3}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Correct Stroop Responses and Calculated Average Response Time}{5}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Total Incorrect Stroop Responses Analysis}{7}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Discussion and Conclusions}{9}{section.4}%
+\contentsline {section}{\numberline {5}References}{9}{section.5}%

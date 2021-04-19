@@ -4,7 +4,7 @@
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:t todo:t |:t
 #+title: 363 Final Report: Stroop test
-#+author: Andrej Glavic, Yuanxi Liu 20688855, Rachel Morton 20925026, Wasam Syed 20746474, Amy Wang
+#+author: Andrej Glavic, Yuanxi Liu 20688855, Rachel Morton 20925026,@@latex:\\@@ Wasam Syed 20746474, Amy Wang
 #+email: r3morton@uwaterloo.ca
 #+language: en
 #+select_tags: export
@@ -26,15 +26,15 @@ John Ridley Stroop published the groundbreaking, "Studies of interference in ser
 In one part of Stroop's classic study, participants had to say the ink colour of the printed word rather than read the word. For instance, if the word 'RED' was printed in purple ink, they were to say, "purple" and not "red". Stroop noticed that subjects took significantly longer to complete this colour naming task than one where they just had to name the colour of coloured squares. This difference in response time, or processing speed, is what is known as the Stroop effect.
 
 ** Methods
-There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. 
-
-Computational tools used? R??
+There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. We used Python to analyze the data and plot the results. 
 
 ** Results
 
-*** 1. Collect data into a dataframe:
+***  Collect data into a dataframe:
 
-#+BEGIN_SRC python :session *StroopData* :exports both :results output 
+In this section, we do the following 2 things. First, we import all the relevant libraries that we need for any code to run. Second, we iterate through all the csv files and merge them into one big pandas data frame called =data=.
+
+#+BEGIN_SRC python :session *StroopData* :exports both :results output
 #graphics :file "StroopPlot.png"
 import pandas as pd
 import os
@@ -53,68 +53,152 @@ for file in csv_files:
     data = data.append(pd.read_csv(file))
 
 pd.set_option('display.max_rows', None)
-print(data)
-#+END_SRC
-
-
-#+BEGIN_SRC python :session *StroopData* :exports both :results value file 
-#output graphics :file "StroopPlot.jpg"
-# Average Congruent vs Incongruent Time
-congruent = np.array([])
-incongruent = np.array([])
-for i in data.iterrows():
-    if i[1]['Correct']:
-        if i[1]['Word'] != i[1]['Ink']:
-            congruent = np.append(congruent, i[1]['Response Time'])
-        else:
-            incongruent = np.append(incongruent, i[1]['Response Time'])
-
-print(np.average(congruent))
-print(np.average(incongruent))
-print("DONE")
-
-fig = plt.figure()
-ax = fig.add_axes([0,0,1,1])
-state = ['Congruent', 'Incongruent']
-average = [np.average(congruent)*1000, np.average(incongruent)*1000]
-ax.bar(state, average)
-#plt.show()
-plt.savefig("/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg")
-"/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg"
 #+END_SRC
 
 #+RESULTS:
-[[file:/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg]]
+: Python 3.8.5 (default, Jan 27 2021, 15:41:15) 
+: [GCC 9.3.0] on linux
+: Type "help", "copyright", "credits" or "license" for more information.
 
-
+#+latex: \pagebreak
+#+latex: \setlength{\voffset}{-0.75in}
 
 *** Descriptive statistics
+
+src_python[:session *StroopData* :exports results :results raw]{data.shape}
+
 [##] participants completed [##] trials.
 
-#+BEGIN_SRC python :session *StroopData* :exports both :results output
-data.mean()
-#+END_SRC
 
-#+RESULTS:
-: Traceback (most recent call last):
-:   File "<stdin>", line 1, in <module>
-: NameError: name 'data' is not defined
-
-
-[Include code]
-
-Congruent trials are where the colour word and the font colour match. Incongruent trials are where the font colour is different than the colour word.
+Congruent trials are where the colour word and the font colour match. Incongruent trials are where the ink colour is different than the colour word.
 
 
 We calculated the Stroop effect as the average response time for correct, incongruent trials minus correct, congruent trials.
 
 [t-test comparing the means of (correct) congruent vs (correct) incongruent trials.]
 
-[PLOT]
+
+
+*** Scatter Plot with Line of Best fit
+
+The code below creates a scatter plot. This scatter plot illustrates the reaction time to each of 20 words displayed in a trial of the experiment. The x-axis corresponds to the 20 words in the test; the y-axis coresponds to response time in miliseconds. Only correct responses were plotted. We noticed that the response time did not seem to be affected by whether a participant was on their first, tenth, or last word, as times were nearly constant across the trial. However, when the word presented was congruent with the ink colour it appeared in, response times were faster. Conversely, participants reacted more slowly to words that were incongruent with their ink colour.
+
+Here is the code we used to generate the scatter plot. On the next page we have the plot itself, which clearly differentiates between the congruent and incongruent responses and also shows a line of best fit for each congruency type.
+
+#+BEGIN_SRC python :session *StroopData* :exports both :results value file 
+#output graphics :file "StroopPlotScatter.jpg"
+
+congruent_y = np.array([])
+congruent_x = np.array([])
+incongruent_y = np.array([])
+incongruent_x = np.array([])
+
+for i in data.iterrows():
+    if i[1]['Correct']:
+        if i[1]['Word'] == i[1]['Ink']:
+            congruent_x = np.append(congruent_x, i[0]+1)
+            congruent_y = np.append(congruent_y, i[1]['Response Time']*1000)
+        else:
+            incongruent_x = np.append(incongruent_x, i[0]+1)
+            incongruent_y = np.append(incongruent_y, i[1]['Response Time']*1000)
+
+plt.scatter(congruent_x, congruent_y)
+m, b = np.polyfit(congruent_x, congruent_y, 1)
+plt.plot(congruent_x, m*congruent_x + b)
+scatter = plt.scatter(incongruent_x, incongruent_y)
+m, b = np.polyfit(incongruent_x, incongruent_y, 1)
+plt.plot(incongruent_x, m*incongruent_x + b)
+plt.xticks(np.arange(1, 21, 1.0))
+plt.legend(["Congruent stimulus", "Incongruent stimulus"])
+plt.title("Stroop Responses Scatter Plot")
+plt.xlabel("Trial Number in Experiment")
+plt.ylabel("Response Time(ms)")
+plt.savefig("StroopPlotScatter.jpg")
+"StroopPlotScatter.jpg"
+
+#+END_SRC
+
+#+RESULTS:
+[[file:StroopPlotScatter.jpg]]
+
+#+latex: \pagebreak
+
+
+*** Correct Stroop Responses and Calculated Average Response Time
+
+In this section, we calculate the average response time for both congruent and incongruent cases. We only consider instances where participants pressed the correct key. Below is the code we used to calculate the average response time. Following that we have the plot that illustrates the difference in the average response time.
+
+#+BEGIN_SRC python :session *StroopData* :exports both :results value file 
+#output graphics :file "StroopPlotAverage.jpg"
+# Average Congruent vs Incongruent Time
+congruent = np.array([])
+incongruent = np.array([])
+for i in data.iterrows():
+    if i[1]['Correct']:
+        if i[1]['Word'] == i[1]['Ink']:
+            congruent = np.append(congruent, i[1]['Response Time'])
+        else:
+            incongruent = np.append(incongruent, i[1]['Response Time'])
+
+width = 0.35
+state = ('Congruent', 'Incongruent')
+state_average = (np.average(congruent)*1000, np.average(incongruent)*1000)
+fig, ax = plt.subplots()
+rects = ax.bar(np.arange(2)+width, state_average, width, color='g')
+ax.set_ylabel('Response Time (ms)')
+ax.set_title('Response Time based on Congruency')
+ax.set_xticks(np.arange(2)+width)
+ax.set_xticklabels(('Congruent', 'Incongruent'))
+
+plt.savefig("StroopPlotAverage.jpg")
+"StroopPlotAverage.jpg"
+#+END_SRC
+
+#+RESULTS:
+[[file:StroopPlotAverage.jpg]]
+
+#+latex: \pagebreak
+
+
+*** Total Incorrect Stroop Responses Analysis
+
+The final graph we include here considers the incorrect responses. We found participants were much more likely to press an incorrect key in response to an incongruent word, when the word did not match the ink colour, than to a congruent word, when the word and ink colour matched. In our sample, there were 8 times as many incorrect keystrokes made for incongruent cases compared to congruent cases.
+
+#+BEGIN_SRC python :session *StroopData* :exports both :results value file
+#output graphics :file "StroopPlotIncorrect.jpg"
+congruent_wrong = 0
+incongruent_wrong = 0
+for i in data.iterrows():
+    if not i[1]['Correct']:
+        if i[1]['Word'] == i[1]['Ink']:
+            congruent_wrong+=1
+        else:
+            incongruent_wrong+=1
+
+width = 0.35
+state = ('Congruent', 'Incongruent')
+wrong_count  = (congruent_wrong, incongruent_wrong)
+fig, ax = plt.subplots()
+rects = ax.bar(np.arange(2)+width, wrong_count, width, color='r')
+ax.set_ylabel('Total Incorrect Responses')
+ax.set_title('Incorrect Responses Based on Congruency')
+ax.set_xticks(np.arange(2)+width)
+ax.set_xticklabels(('Congruent', 'Incongruent'))
+
+plt.savefig("StroopPlotIncorrect.jpg")
+"StroopPlotIncorrect.jpg"
+#+END_SRC
+
+#+RESULTS:
+[[file:StroopPlotIncorrect.jpg]]
+
+#+latex: \pagebreak
 
 ** Discussion and Conclusions
  
 Our experiment takes less than two minutes to complete. It requires pressing the appropriate keyboard key rather than naming the colour aloud as Stroop did originally \cite{Stroop1935}. In our test, there are only 20 trials and a handful [##?] of participants. For a more reliable measure of the Stroop effect you would want to have considerably more participants along with more trials.
+
+However, even with our limited sample size, we saw clear evidence of a Stroop effect: words printed in an ink colour at odds with the word itself took longer to process and were more likely to result in mis-pressed keys than words that matched their ink colour. These differences in processing between congruent and incongruent stimuli are what make the Stroop effect such a fascinating, and popular, phenomenon to study.
 
 ** References
 
