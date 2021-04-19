@@ -22,6 +22,8 @@
 
 #+date: \today
 
+#+latex: \pagebreak
+
 ** Introduction
 John Ridley Stroop published the groundbreaking, "Studies of interference in serial verbal ractions" in the Journal of Experimental Psychology in 1935 \cite{Stroop1935}. Ever since, psychology students worldwide learn about the "Stroop effect", where incongruent stimuli take longer to process than do congruent stimuli. Even though Stroop wasn't the first to publish this effect, his experiments were foundational; his original study is one of the most-cited papers in the history of experimental psychology \cite{MacLeod1991Stroop}.
 
@@ -30,9 +32,27 @@ In one part of Stroop's classic study, participants had to say the ink colour of
 ** Methods
 There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. 
 
-We used Python as our computational tool
+Python was the only tool we used in our project, we used it to code our experiment and as our computational tool
+
+
+#+latex: \pagebreak
+
 
 ** Results
+
+*** Descriptive statistics
+
+We had our 5 group members complete src_python[:session *StroopData* :exports results :results raw]{int((data.shape[0]+1)/20)} trials, and in total we got src_python[:session *StroopData* :exports results :results raw]{(data.shape[0])} data points related to the stroop test.
+
+Of those data points we had src_python[:session *StroopData* :exports results :results raw]{(data.shape[0]-congruent_wrong-incongruent_wrong)} valid data points and src_python[:session *StroopData* :exports results :results raw]{(congruent_wrong+incongruent_wrong)} invalid data points.
+In our trials we defined Congruent trials as trials where the colour word and the font colour match. Incongruent trials are where the font colour is different than the word spelled out. Out of the src_python[:session *StroopData* :exports results :results raw]{(data.shape[0]-congruent_wrong-incongruent_wrong)} valid data points we had src_python[:session *StroopData* :exports results :results raw]{(congruent_x.shape[0])} valid congruent trials and src_python[:session *StroopData* :exports results :results raw]{(incongruent_x.shape[0])} valid incongruent trials.
+
+We calculated the Stroop effect as the average response time for correct, incongruent trials minus correct, congruent trials. That stroop value for us was src_python[:session *StroopData* :exports results :results raw]{int(((np.average(incongruent)-np.average(congruent))*1000))}ms. That number resulted from the subtraction of src_python[:session *StroopData* :exports results :results raw]{int((np.average(incongruent))*1000)}ms, the average time for of an incongruent trial, with src_python[:session *StroopData* :exports results :results raw]{int((np.average(congruent))*1000)}ms, the average time of a congruent trial.
+
+Next we need to show that this value has some significance, and to do this we will use a t-test and compare the mean of the congruent trials against the mean of the incongruent trials.
+
+
+#+latex: \pagebreak
 
 ***  Collect data into a dataframe:
 
@@ -63,9 +83,6 @@ pd.set_option('display.max_rows', None)
 #+END_SRC
 
 #+RESULTS:
-: Python 3.8.5 (default, Jan 27 2021, 15:41:15) 
-: [GCC 9.3.0] on linux
-: Type "help", "copyright", "credits" or "license" for more information.
 
 #+latex: \pagebreak
 #+latex: \setlength{\voffset}{-0.75in}
@@ -189,23 +206,6 @@ plt.savefig("StroopPlotIncorrect.jpg")
 
 #+latex: \pagebreak
 
-
-*** Descriptive statistics
-
-src_python[:session *StroopData* :exports results :results raw]{data.shape}
-
-[##] participants completed [##] trials.
-
-[Include code]
-
-Congruent trials are where the colour word and the font colour match. Incongruent trials are where the font colour is different than the colour word.
-
-
-We calculated the Stroop effect as the average response time for correct, incongruent trials minus correct, congruent trials.
-
-[t-test comparing the means of (correct) congruent vs (correct) incongruent trials.]
-
-[PLOT]
 
 
 ** Discussion and Conclusions

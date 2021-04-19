@@ -95,7 +95,11 @@ def main():
         append_element = {'Word': word, 'Ink': ink, 'Response Time': response_time, 'Correct': pressed_key == ink}
         df = df.append(append_element, ignore_index=True)
     now = datetime.datetime.now()
-    name = re.findall("home/(\w+)/", os.getcwd())[0]
+    name = re.findall("home/(\w+)/", os.getcwd())
+    if len(name):
+        name = name[0]
+    else:
+        name = "StroopTest"
     file_name = '{}_stroop_{}_{}_{}_{}.csv'.format(name, now.day, now.hour, now.minute, now.second)
     df.to_csv(file_name, index=False)
 
