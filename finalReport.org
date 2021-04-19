@@ -34,6 +34,7 @@ Computational tools used? R??
 
 *** 1. Collect data into a dataframe:
 
+
 #+BEGIN_SRC python :session *StroopData* :exports both :results output 
 #graphics :file "StroopPlot.png"
 import pandas as pd
