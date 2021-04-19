@@ -34,59 +34,33 @@ Computational tools used? R??
 
 *** 1. Collect data into a dataframe:
 
-
-#+BEGIN_SRC python :session *StroopData* :exports both :results output 
-#graphics :file "StroopPlot.png"
-import pandas as pd
-import os
-import numpy as np
-import matplotlib.pyplot as plt
-
-files = os.listdir()
-
-# Identify all csv files in the directory
-csv_files = []
-for file in files:
-    if file[-4:] == ".csv":
-        csv_files.append(file)
-data = pd.DataFrame()
-for file in csv_files:
-    data = data.append(pd.read_csv(file))
-
-pd.set_option('display.max_rows', None)
-print(data)
-#+END_SRC
-
-
-#+BEGIN_SRC python :session *StroopData* :exports both :results value file 
-#output graphics :file "StroopPlot.jpg"
-# Average Congruent vs Incongruent Time
-congruent = np.array([])
-incongruent = np.array([])
-for i in data.iterrows():
-    if i[1]['Correct']:
-        if i[1]['Word'] != i[1]['Ink']:
-            congruent = np.append(congruent, i[1]['Response Time'])
-        else:
-            incongruent = np.append(incongruent, i[1]['Response Time'])
-
-print(np.average(congruent))
-print(np.average(incongruent))
-print("DONE")
-
-fig = plt.figure()
-ax = fig.add_axes([0,0,1,1])
-state = ['Congruent', 'Incongruent']
-average = [np.average(congruent)*1000, np.average(incongruent)*1000]
-ax.bar(state, average)
-#plt.show()
-plt.savefig("/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg")
-"/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg"
+#+BEGIN_SRC python :results output :session *StroopData*
+import pandas_read_csv.py as data
 #+END_SRC
 
 #+RESULTS:
-[[file:/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg]]
+#+begin_example
+Python 3.8.5 (default, Jan 27 2021, 15:41:15) 
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+Word Ink  Response Time  Correct
+0     g   b       0.902731      1.0
+1     g   g       0.757359      1.0
+2     b   y       0.914164      1.0
+3     r   b       0.928025      1.0
+4     b   b       0.566040      1.0
+..  ...  ..            ...      ...
+15    r   y       1.873278      1.0
+16    y   y       1.865308      1.0
+17    y   r       1.841314      1.0
+18    b   b       1.498685      1.0
+19    y   y       2.081316      1.0
 
+[179 rows x 4 columns]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'pandas_read_csv.py'; 'pandas_read_csv' is not a package
+#+end_example
 
 
 *** Descriptive statistics
@@ -120,5 +94,4 @@ Our experiment takes less than two minutes to complete. It requires pressing the
 ** References
 
 #+latex: \bibliography{finalReportBib}
-
 
