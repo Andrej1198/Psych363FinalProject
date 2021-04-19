@@ -32,7 +32,11 @@ Computational tools used? R??
 
 ** Results
 
-*** 1. Collect data into a dataframe:
+***  Collect data into a dataframe:
+
+In this section we do the following 2 things.
+First, we import all the relavent libraries that we need for any code to run
+Second, we itterate through all the csv files and merge them into one big pandas dataframe
 
 
 #+BEGIN_SRC python :session *StroopData* :exports both :results output 
@@ -54,12 +58,56 @@ for file in csv_files:
     data = data.append(pd.read_csv(file))
 
 pd.set_option('display.max_rows', None)
-print(data)
 #+END_SRC
 
+#+RESULTS:
+
+#+latex: \pagebreak
+
+
+*** Scatter Plot with Line of Best fit
 
 #+BEGIN_SRC python :session *StroopData* :exports both :results value file 
-#output graphics :file "StroopPlot.jpg"
+#output graphics :file "StroopPlotScatter.jpg"
+
+congruent_y = np.array([])
+congruent_x = np.array([])
+incongruent_y = np.array([])
+incongruent_x = np.array([])
+
+for i in data.iterrows():
+    if i[1]['Correct']:
+        if i[1]['Word'] == i[1]['Ink']:
+            congruent_x = np.append(congruent_x, i[0]+1)
+            congruent_y = np.append(congruent_y, i[1]['Response Time']*1000)
+        else:
+            incongruent_x = np.append(incongruent_x, i[0]+1)
+            incongruent_y = np.append(incongruent_y, i[1]['Response Time']*1000)
+
+plt.scatter(congruent_x, congruent_y)
+m, b = np.polyfit(congruent_x, congruent_y, 1)
+plt.plot(congruent_x, m*congruent_x + b)
+scatter = plt.scatter(incongruent_x, incongruent_y)
+m, b = np.polyfit(incongruent_x, incongruent_y, 1)
+plt.plot(incongruent_x, m*incongruent_x + b)
+plt.xticks(np.arange(1, 21, 1.0))
+plt.legend(["Congruent Stroop", "Incongruent Stroop"])
+plt.title("Stroop Responses Scatter Plot")
+plt.xlabel("Trial Number in Experiment")
+plt.ylabel("Response Time(ms)")
+plt.savefig("StroopPlotScatter.jpg")
+"StroopPlotScatter.jpg"
+
+#+END_SRC
+
+#+RESULTS:
+[[file:StroopPlotScatter.jpg]]
+
+
+*** Correct Stroop Responses and Calculated Average Response Time
+
+#+BEGIN_SRC python :session *StroopData* :exports both :results value file 
+#output graphics :file "StroopPlotAverage.jpg"
 # Average Congruent vs Incongruent Time
 congruent = np.array([])
 incongruent = np.array([])
@@ -70,37 +118,59 @@ for i in data.iterrows():
         else:
             incongruent = np.append(incongruent, i[1]['Response Time'])
 
-print(np.average(congruent))
-print(np.average(incongruent))
-print("DONE")
+width = 0.35
+state = ('Congruent', 'Incongruent')
+state_average = (np.average(congruent)*1000, np.average(incongruent)*1000)
+fig, ax = plt.subplots()
+rects = ax.bar(np.arange(2)+width, state_average, width, color='b')
+ax.set_ylabel('Response Time (ms)')
+ax.set_title('Response Time based on Congruency')
+ax.set_xticks(np.arange(2)+width)
+ax.set_xticklabels(('Congruent', 'Incongruent'))
 
-fig = plt.figure()
-ax = fig.add_axes([0,0,1,1])
-state = ['Congruent', 'Incongruent']
-average = [np.average(congruent)*1000, np.average(incongruent)*1000]
-ax.bar(state, average)
-#plt.show()
-plt.savefig("/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg")
-"/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg"
+plt.savefig("StroopPlotAverage.jpg")
+"StroopPlotAverage.jpg"
 #+END_SRC
 
 #+RESULTS:
-[[file:/home/nobrainleft/Documents/363/Psych363FinalProject/StroopPlot.jpg]]
+[[file:StroopPlotAverage.jpg]]
 
+
+*** Incorrect Stroop Responses Analysis
+
+#+BEGIN_SRC python :session *StroopData* :exports both :results value file 
+#output graphics :file "StroopPlotIncorrect.jpg"
+
+
+congruent_wrong = 0
+incongruent_wrong = 0
+for i in data.iterrows():
+    if not i[1]['Correct']:
+        if i[1]['Word'] == i[1]['Ink']:
+            congruent_wrong+=1
+        else:
+            incongruent_wrong+=1
+
+width = 0.35
+state = ('Congruent', 'Incongruent')
+wrong_count  = (congruent_wrong, incongruent_wrong)
+fig, ax = plt.subplots()
+rects = ax.bar(np.arange(2)+width, wrong_count, width, color='r')
+ax.set_ylabel('Incorrect Responses')
+ax.set_title('Incorrect Responses Based on Congruency')
+ax.set_xticks(np.arange(2)+width)
+ax.set_xticklabels(('Congruent', 'Incongruent'))
+
+plt.savefig("StroopPlotIncorrect.jpg")
+"StroopPlotIncorrect.jpg"
+#+END_SRC
+
+#+RESULTS:
+[[file:StroopPlotIncorrect.jpg]]
 
 
 *** Descriptive statistics
 [##] participants completed [##] trials.
-
-#+BEGIN_SRC python :session *StroopData* :exports both :results output
-data.mean()
-#+END_SRC
-
-#+RESULTS:
-: Traceback (most recent call last):
-:   File "<stdin>", line 1, in <module>
-: NameError: name 'data' is not defined
-
 
 [Include code]
 
