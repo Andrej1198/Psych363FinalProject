@@ -4,7 +4,7 @@
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:t todo:t |:t
 #+title: 363 Final Report: Stroop test
-#+author: Andrej Glavic 20675512, Yuanxi Liu 20688855, Rachel Morton 20925026, Wasam Syed 20746474, Amy Wang
+#+author: Andrej Glavic 20675512, Yuanxi Liu 20688855, @@latex:\\@@ Rachel Morton 20925026, Wasam Syed 20746474,@@latex:\\@@ Fantongzhang Wang 20721545
 #+email: r3morton@uwaterloo.ca
 #+language: en
 #+select_tags: export
@@ -28,8 +28,6 @@
 ** Introduction
 John Ridley Stroop published the groundbreaking, "Studies of interference in serial verbal ractions" in the Journal of Experimental Psychology in 1935 \cite{Stroop1935}. Ever since, psychology students worldwide learn about the "Stroop effect", where incongruent stimuli take longer to process than do congruent stimuli. Even though Stroop wasn't the first to publish this effect, his experiments were foundational; his original study is one of the most-cited papers in the history of experimental psychology \cite{MacLeod1991Stroop}.
 
-There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. We used Python to analyze the data and plot the results. 
-
 ** Methods
 There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. 
 
@@ -40,12 +38,11 @@ Python was the only tool we used in our project, we used it to code our experime
 
 *** Descriptive statistics
 
-We had our 5 group members complete src_python[:session *StroopData* :exports results :results raw]{int((data.shape[0]+1)/20)} trials, and in total we got src_python[:session *StroopData* :exports results :results raw]{(data.shape[0])} data points related to the stroop test.
+We had our 5 group members complete src_python[:session *StroopData* :exports results :results raw]{int((data.shape[0]+1)/20)} trials, and in total we got src_python[:session *StroopData* :exports results :results raw]{(data.shape[0])} data points related to the stroop test. We defined valid data points as a stroop test where the participant clicks the correct key and an invalid data point as one where the participant clicks the wrong key. Of those data points we had src_python[:session *StroopData* :exports results :results raw]{(data.shape[0]-congruent_wrong-incongruent_wrong)} valid data points and src_python[:session *StroopData* :exports results :results raw]{(congruent_wrong+incongruent_wrong)} invalid data points.
 
-Of those data points we had src_python[:session *StroopData* :exports results :results raw]{(data.shape[0]-congruent_wrong-incongruent_wrong)} valid data points and src_python[:session *StroopData* :exports results :results raw]{(congruent_wrong+incongruent_wrong)} invalid data points.
 In our trials we defined Congruent trials as trials where the colour word and the font colour match. Incongruent trials are where the font colour is different than the word spelled out. Out of the src_python[:session *StroopData* :exports results :results raw]{(data.shape[0]-congruent_wrong-incongruent_wrong)} valid data points we had src_python[:session *StroopData* :exports results :results raw]{(congruent_x.shape[0])} valid congruent trials and src_python[:session *StroopData* :exports results :results raw]{(incongruent_x.shape[0])} valid incongruent trials.
 
-We calculated the Stroop effect as the average response time for correct, incongruent trials minus correct, congruent trials. That stroop value for us was src_python[:session *StroopData* :exports results :results raw]{int(((np.average(incongruent)-np.average(congruent))*1000))}ms. That number resulted from the subtraction of src_python[:session *StroopData* :exports results :results raw]{int((np.average(incongruent))*1000)}ms, the average time for of an incongruent trial, with src_python[:session *StroopData* :exports results :results raw]{int((np.average(congruent))*1000)}ms, the average time of a congruent trial.
+We calculated the Stroop effect as the average response time for correct, incongruent trials minus correct, congruent trials. That stroop value for us was src_python[:session *StroopData* :exports results :results raw]{int(((np.average(incongruent)-np.average(congruent))*1000))}ms. That number resulted from the subtraction of src_python[:session *StroopData* :exports results :results raw]{int((np.average(incongruent))*1000)}ms, the average time for of an incongruent trial, withminus src_python[:session *StroopData* :exports results :results raw]{int((np.average(congruent))*1000)}ms, the average time of a congruent trial.
 
 Next we need to show that this value has some significance, and to do this we will use a t-test and compare the mean of the congruent trials against the mean of the incongruent trials, but before we do that we need to calculate the t-static value, and we do that using the below formula.
 
@@ -115,7 +112,7 @@ scatter = plt.scatter(incongruent_x, incongruent_y)
 m, b = np.polyfit(incongruent_x, incongruent_y, 1)
 plt.plot(incongruent_x, m*incongruent_x + b)
 plt.xticks(np.arange(1, 21, 1.0))
-plt.legend(["Congruent Stroop", "Incongruent Stroop"])
+plt.legend(["Congruent Stimulus", "Incongruent Stimulus"])
 plt.title("Stroop Responses Scatter Plot")
 plt.xlabel("Trial Number in Experiment")
 plt.ylabel("Response Time(ms)")
@@ -147,14 +144,14 @@ for i in data.iterrows():
             incongruent = np.append(incongruent, i[1]['Response Time'])
 
 width = 0.35
-state = ('Congruent', 'Incongruent')
+state = ('Congruent Stimulus', 'Incongruent Stimulus')
 state_average = (np.average(congruent)*1000, np.average(incongruent)*1000)
 fig, ax = plt.subplots()
 rects = ax.bar(np.arange(2)+width, state_average, width, color='g')
 ax.set_ylabel('Response Time (ms)')
 ax.set_title('Response Time based on Congruency')
 ax.set_xticks(np.arange(2)+width)
-ax.set_xticklabels(('Congruent', 'Incongruent'))
+ax.set_xticklabels(('Congruent Stimulus', 'Incongruent Stimulus'))
 plt.savefig("StroopPlotAverage.jpg")
 "StroopPlotAverage.jpg"
 #+END_SRC
