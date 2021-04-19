@@ -40,6 +40,6 @@ plt.show()
 
 # T-test:
 
-t_test_lst = stats.ttest_rel(newdat[newdat['Congruency']=='Congruent']['Response Time'],(newdat[newdat['Congruency']=='Incongruent']['Response Time'][0:174])) 
+t_test_lst = stats.ttest_ind(newdat[newdat['Congruency']=='Congruent']['Response Time'],(newdat[newdat['Congruency']=='Incongruent']['Response Time'][0:174])) 
 print(t_test_lst)
 
