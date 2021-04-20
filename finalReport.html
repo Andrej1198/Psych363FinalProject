@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-04-19 Mon 18:09 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>363 Final Report: Stroop test</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Andrej Glavic 20675512, Yuanxi Liu 20688855, @@latex:\\@@ Rachel Morton 20925026, Wasam Syed 20746474,@@latex:\\@@ Fantongzhang Wang 20721545" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">363 Final Report: Stroop test</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgc87d086">1. Introduction</a></li>
+<li><a href="#orgfec71ba">2. Methods</a></li>
+<li><a href="#orga6cff2e">3. Results</a>
+<ul>
+<li><a href="#org43ba1e5">3.1. Descriptive statistics</a></li>
+<li><a href="#org9ea2f7b">3.2. Collect data into a dataframe:</a></li>
+<li><a href="#orgce6837c">3.3. Scatter Plot with Line of Best fit</a></li>
+<li><a href="#org4d59f5a">3.4. Correct Stroop Responses and Calculated Average Response Time</a></li>
+<li><a href="#org674f444">3.5. Total Incorrect Stroop Responses Analysis</a></li>
+</ul>
+</li>
+<li><a href="#orgcc2b3f0">4. Discussion and Conclusions</a></li>
+<li><a href="#orgb5c9be2">5. References</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgc87d086" class="outline-2">
+<h2 id="orgc87d086"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+John Ridley Stroop published the groundbreaking, "Studies of interference in serial verbal reactions" in the Journal of Experimental Psychology in 1935 \cite{Stroop1935}. Ever since, psychology students worldwide learn about the "Stroop effect", where incongruent stimuli take longer to process than do congruent stimuli. Even though Stroop wasn't the first to publish this effect, his experiments were foundational; his original study is one of the most-cited papers in the history of experimental psychology \cite{MacLeod1991Stroop}.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfec71ba" class="outline-2">
+<h2 id="orgfec71ba"><span class="section-number-2">2</span> Methods</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. 
+</p>
+
+<p>
+Python was the only tool we used in our project, we used it to code our experiment and as our computational tool. The python experiment that we coded is in the same folder as this and it is called StroopTest.py, feel free to give it a run!
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orga6cff2e" class="outline-2">
+<h2 id="orga6cff2e"><span class="section-number-2">3</span> Results</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org43ba1e5" class="outline-3">
+<h3 id="org43ba1e5"><span class="section-number-3">3.1</span> Descriptive statistics</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+We had our 5 group members complete 22 trials, and in total we got 439 responses to the stimulus words in our experiment. We defined valid data points as a correct response where the participant clicks the appropriate key and invalid data points as an incorrect response where the participant clicks the wrong key. Of those data points we had 421 valid, or correct, data points and 18 invalid, or incorrect, responses.
+</p>
+
+<p>
+In our experiment, we defined congruent cases as those stimulus words where the font colour matched the word (for example, the word RED printed in a red font). With incongruent cases there is a mis-match between the word and the font colour (for example, the word RED printed in a green font). Out of the 421 valid data points we had 201 valid congruent trials and 220 valid incongruent trials.
+</p>
+
+<p>
+We calculated the Stroop effect as the average response time for correct, incongruent stimulus words minus correct, congruent stimulus words. Thus, we observed a Stroop effect of 228 ms. That number resulted from the subtraction of 1078 ms, the average time of a congruent trial, from  1306 ms, the average time for an incongruent trial.
+</p>
+
+<p>
+To see whether this difference was significant we conducted a t-test where the null hypothesis was that there is no difference between the means of the congruent and incongruent words and the alternative hypothesis was that there is a difference between the means.
+</p>
+
+<p>
+In the t-test above all the variables with a subsript of 1 relate to the incongruent results, and all the variables with a subscript of 2 relate to the congruent results. X is the mean of the data sets, \(S^2\) is the standard deviation, and N is the number of elements in each set.
+</p>
+
+<p>
+The resultant value we got for t was: 3.188, p&lt;.05, indicating there is a significant difference between the congruent and incongruent means at the 95% confidence interval.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org9ea2f7b" class="outline-3">
+<h3 id="org9ea2f7b"><span class="section-number-3">3.2</span> Collect data into a dataframe:</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+In this section, we do the following 2 things. First, we import all the relevant libraries that we need for any code to run. Second, we iterate through all the csv files and merge them into one big pandas data frame called <code>data</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;">#</span><span style="color: #b22222;">graphics :file "StroopPlot.png"</span>
+<span style="color: #a020f0;">import</span> pandas <span style="color: #a020f0;">as</span> pd
+<span style="color: #a020f0;">import</span> os
+<span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
+<span style="color: #a020f0;">import</span> matplotlib.pyplot <span style="color: #a020f0;">as</span> plt
+<span style="color: #a020f0;">import</span> math
+
+<span style="color: #a0522d;">files</span> = os.listdir()
+
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Identify all csv files in the directory</span>
+<span style="color: #a0522d;">csv_files</span> = []
+<span style="color: #a020f0;">for</span> <span style="color: #483d8b;">file</span> <span style="color: #a020f0;">in</span> files:
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">if</span> <span style="color: #483d8b;">file</span>[-4:] == <span style="color: #8b2252;">".csv"</span>:
+        csv_files.append(<span style="color: #483d8b;">file</span>)
+<span style="color: #a0522d;">data</span> = pd.DataFrame()
+<span style="color: #a020f0;">for</span> <span style="color: #483d8b;">file</span> <span style="color: #a020f0;">in</span> csv_files:
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a0522d;">data</span> = data.append(pd.read_csv(<span style="color: #483d8b;">file</span>))
+
+pd.set_option(<span style="color: #8b2252;">'display.max_rows'</span>, <span style="color: #008b8b;">None</span>)
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgce6837c" class="outline-3">
+<h3 id="orgce6837c"><span class="section-number-3">3.3</span> Scatter Plot with Line of Best fit</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+The code below creates a scatter plot. This scatter plot illustrates the reaction time to each of 20 words displayed in a trial of the experiment. The x-axis corresponds to the 20 words in the test; the y-axis coresponds to response time in miliseconds. Only correct responses were plotted. We noticed that the response time did not seem to be affected by whether a participant was on their first, tenth, or last word, as times were nearly constant across the trial. However, when the word presented was congruent with the ink colour it appeared in, response times were faster. Conversely, participants reacted more slowly to words that were incongruent with their ink colour.
+</p>
+
+<p>
+Here is the code we used to generate the scatter plot. On the next page we have the plot itself, which clearly differentiates between the congruent and incongruent responses and also shows a line of best fit for each congruency type.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;">#</span><span style="color: #b22222;">output graphics :file "StroopPlotScatter.jpg"</span>
+
+<span style="color: #a0522d;">congruent_y</span> = np.array([])
+<span style="color: #a0522d;">congruent_x</span> = np.array([])
+<span style="color: #a0522d;">incongruent_y</span> = np.array([])
+<span style="color: #a0522d;">incongruent_x</span> = np.array([])
+
+<span style="color: #a020f0;">for</span> i <span style="color: #a020f0;">in</span> data.iterrows():
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">if</span> i[1][<span style="color: #8b2252;">'Correct'</span>]:
+        <span style="color: #a020f0;">if</span> i[1][<span style="color: #8b2252;">'Word'</span>] == i[1][<span style="color: #8b2252;">'Ink'</span>]:
+            <span style="color: #a0522d;">congruent_x</span> = np.append(congruent_x, i[0]+1)
+            <span style="color: #a0522d;">congruent_y</span> = np.append(congruent_y, i[1][<span style="color: #8b2252;">'Response Time'</span>]*1000)
+        <span style="color: #a020f0;">else</span>:
+            <span style="color: #a0522d;">incongruent_x</span> = np.append(incongruent_x, i[0]+1)
+            <span style="color: #a0522d;">incongruent_y</span> = np.append(incongruent_y, i[1][<span style="color: #8b2252;">'Response Time'</span>]*1000)
+
+plt.scatter(congruent_x, congruent_y)
+<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">b</span> = np.polyfit(congruent_x, congruent_y, 1)
+plt.plot(congruent_x, m*congruent_x + b)
+<span style="color: #a0522d;">scatter</span> = plt.scatter(incongruent_x, incongruent_y)
+<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">b</span> = np.polyfit(incongruent_x, incongruent_y, 1)
+plt.plot(incongruent_x, m*incongruent_x + b)
+plt.xticks(np.arange(1, 21, 1.0))
+plt.legend([<span style="color: #8b2252;">"Congruent Stimulus"</span>, <span style="color: #8b2252;">"Incongruent Stimulus"</span>])
+plt.title(<span style="color: #8b2252;">"Stroop Responses Scatter Plot"</span>)
+plt.xlabel(<span style="color: #8b2252;">"Word Occurence In Test"</span>)
+plt.ylabel(<span style="color: #8b2252;">"Response Time(ms)"</span>)
+plt.savefig(<span style="color: #8b2252;">"StroopPlotScatter.jpg"</span>)
+<span style="color: #8b2252;">"StroopPlotScatter.jpg"</span>
+
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="StroopPlotScatter.jpg" alt="StroopPlotScatter.jpg" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org4d59f5a" class="outline-3">
+<h3 id="org4d59f5a"><span class="section-number-3">3.4</span> Correct Stroop Responses and Calculated Average Response Time</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+In this section, we calculate the average response time for both congruent and incongruent cases. We only consider instances where participants pressed the correct key. Below is the code we used to calculate the average response time. Following that we have the plot that illustrates the difference in the average response time.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;">#</span><span style="color: #b22222;">output graphics :file "StroopPlotAverage.jpg"</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Average Congruent vs Incongruent Time</span>
+<span style="color: #a0522d;">congruent</span> = np.array([])
+<span style="color: #a0522d;">incongruent</span> = np.array([])
+<span style="color: #a020f0;">for</span> i <span style="color: #a020f0;">in</span> data.iterrows():
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">if</span> i[1][<span style="color: #8b2252;">'Correct'</span>]:
+        <span style="color: #a020f0;">if</span> i[1][<span style="color: #8b2252;">'Word'</span>] == i[1][<span style="color: #8b2252;">'Ink'</span>]:
+            <span style="color: #a0522d;">congruent</span> = np.append(congruent, i[1][<span style="color: #8b2252;">'Response Time'</span>])
+        <span style="color: #a020f0;">else</span>:
+            <span style="color: #a0522d;">incongruent</span> = np.append(incongruent, i[1][<span style="color: #8b2252;">'Response Time'</span>])
+
+<span style="color: #a0522d;">width</span> = 0.35
+<span style="color: #a0522d;">state</span> = (<span style="color: #8b2252;">'Congruent Stimulus'</span>, <span style="color: #8b2252;">'Incongruent Stimulus'</span>)
+<span style="color: #a0522d;">state_average</span> = (np.average(congruent)*1000, np.average(incongruent)*1000)
+<span style="color: #a0522d;">fig</span>, <span style="color: #a0522d;">ax</span> = plt.subplots()
+<span style="color: #a0522d;">rects</span> = ax.bar(np.arange(2)+width, state_average, width, color=<span style="color: #8b2252;">'g'</span>)
+ax.set_ylabel(<span style="color: #8b2252;">'Response Time (ms)'</span>)
+ax.set_title(<span style="color: #8b2252;">'Response Time based on Congruency'</span>)
+ax.set_xticks(np.arange(2)+width)
+ax.set_xticklabels((<span style="color: #8b2252;">'Congruent Stimulus'</span>, <span style="color: #8b2252;">'Incongruent Stimulus'</span>))
+plt.savefig(<span style="color: #8b2252;">"StroopPlotAverage.jpg"</span>)
+<span style="color: #8b2252;">"StroopPlotAverage.jpg"</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="StroopPlotAverage.jpg" alt="StroopPlotAverage.jpg" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org674f444" class="outline-3">
+<h3 id="org674f444"><span class="section-number-3">3.5</span> Total Incorrect Stroop Responses Analysis</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+The final graph we include here considers the incorrect responses. We found participants were much more likely to press an incorrect key in response to an incongruent word, when the word did not match the ink colour, than to a congruent word, when the word and ink colour matched. In our sample, there were 8 times as many incorrect keystrokes made for incongruent cases compared to congruent cases.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;">#</span><span style="color: #b22222;">output graphics :file "StroopPlotIncorrect.jpg"</span>
+<span style="color: #a0522d;">congruent_wrong</span> = 0
+<span style="color: #a0522d;">incongruent_wrong</span> = 0
+<span style="color: #a020f0;">for</span> i <span style="color: #a020f0;">in</span> data.iterrows():
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">if</span> <span style="color: #a020f0;">not</span> i[1][<span style="color: #8b2252;">'Correct'</span>]:
+        <span style="color: #a020f0;">if</span> i[1][<span style="color: #8b2252;">'Word'</span>] == i[1][<span style="color: #8b2252;">'Ink'</span>]:
+            <span style="color: #a0522d;">congruent_wrong</span>+=1
+        <span style="color: #a020f0;">else</span>:
+            <span style="color: #a0522d;">incongruent_wrong</span>+=1
+
+<span style="color: #a0522d;">width</span> = 0.35
+<span style="color: #a0522d;">state</span> = (<span style="color: #8b2252;">'Congruent'</span>, <span style="color: #8b2252;">'Incongruent'</span>)
+<span style="color: #a0522d;">wrong_count</span>  = (congruent_wrong, incongruent_wrong)
+<span style="color: #a0522d;">fig</span>, <span style="color: #a0522d;">ax</span> = plt.subplots()
+<span style="color: #a0522d;">rects</span> = ax.bar(np.arange(2)+width, wrong_count, width, color=<span style="color: #8b2252;">'r'</span>)
+ax.set_ylabel(<span style="color: #8b2252;">'Total Incorrect Responses'</span>)
+ax.set_title(<span style="color: #8b2252;">'Incorrect Responses Based on Congruency'</span>)
+ax.set_xticks(np.arange(2)+width)
+ax.set_xticklabels((<span style="color: #8b2252;">'Congruent'</span>, <span style="color: #8b2252;">'Incongruent'</span>))
+
+plt.savefig(<span style="color: #8b2252;">"StroopPlotIncorrect.jpg"</span>)
+<span style="color: #8b2252;">"StroopPlotIncorrect.jpg"</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="StroopPlotIncorrect.jpg" alt="StroopPlotIncorrect.jpg" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgcc2b3f0" class="outline-2">
+<h2 id="orgcc2b3f0"><span class="section-number-2">4</span> Discussion and Conclusions</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Our experiment takes less than two minutes to complete. It requires pressing the appropriate keyboard key rather than naming the colour aloud as Stroop did originally \cite{Stroop1935}. In our test, there are only 22 trials and a handful  of participants. For a more reliable measure of the Stroop effect you would want to have considerably more participants along with more trials.
+</p>
+
+<p>
+However, even with our limited sample size, we saw clear evidence of a Stroop effect: words printed in an ink colour at odds with the word itself took longer to process and were more likely to result in mis-pressed keys than words that matched their ink colour. These differences in processing between congruent and incongruent stimuli are what make the Stroop effect such a fascinating, and popular, phenomenon to study.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgb5c9be2" class="outline-2">
+<h2 id="orgb5c9be2"><span class="section-number-2">5</span> References</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: \today</p>
+<p class="author">Author: Andrej Glavic 20675512, Yuanxi Liu 20688855,  Rachel Morton 20925026, Wasam Syed 20746474, Fantongzhang Wang 20721545</p>
+<p class="date">Created: 2021-04-19 Mon 18:09</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

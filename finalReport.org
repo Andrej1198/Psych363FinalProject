@@ -31,26 +31,26 @@ John Ridley Stroop published the groundbreaking, "Studies of interference in ser
 ** Methods
 There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. 
 
-Python was the only tool we used in our project, we used it to code our experiment and as our computational tool. The python experiment that we coded in in the same folder as this and it is called StroopTest.py, feel free to give it a run!
+Python was the only tool we used in our project, we used it to code our experiment and as our computational tool. The python experiment that we coded is in the same folder as this and it is called StroopTest.py, feel free to give it a run!
 
 
 ** Results
 
 *** Descriptive statistics
 
-We had our 5 group members complete src_python[:session *StroopData* :exports results :results raw]{int((data.shape[0]+1)/20)} trials, and in total we got src_python[:session *StroopData* :exports results :results raw]{(data.shape[0])} data points related to the stroop test. We defined valid data points as a stroop test where the participant clicks the correct key and an invalid data point as one where the participant clicks the wrong key. Of those data points we had src_python[:session *StroopData* :exports results :results raw]{(data.shape[0]-congruent_wrong-incongruent_wrong)} valid data points and src_python[:session *StroopData* :exports results :results raw]{(congruent_wrong+incongruent_wrong)} invalid data points.
+We had our 5 group members complete src_python[:session *StroopData* :exports results :results raw]{int((data.shape[0]+1)/20)} trials, and in total we got src_python[:session *StroopData* :exports results :results raw]{(data.shape[0])} responses to the stimulus words in our experiment. We defined valid data points as a correct response where the participant clicks the appropriate key and invalid data points as an incorrect response where the participant clicks the wrong key. Of those data points we had src_python[:session *StroopData* :exports results :results raw]{(data.shape[0]-congruent_wrong-incongruent_wrong)} valid, or correct, data points and src_python[:session *StroopData* :exports results :results raw]{(congruent_wrong+incongruent_wrong)} invalid, or incorrect, responses.
 
-In our trials we defined Congruent trials as trials where the colour word and the font colour match. Incongruent trials are where the font colour is different than the word spelled out. Out of the src_python[:session *StroopData* :exports results :results raw]{(data.shape[0]-congruent_wrong-incongruent_wrong)} valid data points we had src_python[:session *StroopData* :exports results :results raw]{(congruent_x.shape[0])} valid congruent trials and src_python[:session *StroopData* :exports results :results raw]{(incongruent_x.shape[0])} valid incongruent trials.
+In our experiment, we defined congruent cases as those stimulus words where the font colour matched the word (for example, the word RED printed in a red font). With incongruent cases there is a mis-match between the word and the font colour (for example, the word RED printed in a green font). Out of the src_python[:session *StroopData* :exports results :results raw]{(data.shape[0]-congruent_wrong-incongruent_wrong)} valid data points we had src_python[:session *StroopData* :exports results :results raw]{(congruent_x.shape[0])} valid congruent trials and src_python[:session *StroopData* :exports results :results raw]{(incongruent_x.shape[0])} valid incongruent trials.
 
-We calculated the Stroop effect as the average response time for correct, incongruent trials minus correct, congruent trials. That stroop value for us was src_python[:session *StroopData* :exports results :results raw]{int(((np.average(incongruent)-np.average(congruent))*1000))}ms. That number resulted from the subtraction of src_python[:session *StroopData* :exports results :results raw]{int((np.average(incongruent))*1000)}ms, the average time for of an incongruent trial, withminus src_python[:session *StroopData* :exports results :results raw]{int((np.average(congruent))*1000)}ms, the average time of a congruent trial.
+We calculated the Stroop effect as the average response time for correct, incongruent stimulus words minus correct, congruent stimulus words. Thus, we observed a Stroop effect of src_python[:session *StroopData* :exports results :results raw]{int(((np.average(incongruent)-np.average(congruent))*1000))} ms. That number resulted from the subtraction of src_python[:session *StroopData* :exports results :results raw]{int((np.average(congruent))*1000)} ms, the average time of a congruent trial, from  src_python[:session *StroopData* :exports results :results raw]{int((np.average(incongruent))*1000)} ms, the average time for an incongruent trial.
 
-Next we need to show that this value has some significance, and to do this we will use a t-test and compare the mean of the congruent trials against the mean of the incongruent trials, but before we do that we need to calculate the t-static value, and we do that using the below formula.
+To see whether this difference was significant we conducted a t-test where the null hypothesis was that there is no difference between the means of the congruent and incongruent words and the alternative hypothesis was that there is a difference between the means.
 
 #+latex: \[ t = \frac{ \overline{X_1} - \overline{X_2}} { \sqrt{ \frac{S_1^2}{N_1} + \frac{S_2^2}{N_2}} } \]
 
 In the t-test above all the variables with a subsript of 1 relate to the incongruent results, and all the variables with a subscript of 2 relate to the congruent results. X is the mean of the data sets, $S^2$ is the standard deviation, and N is the number of elements in each set.
 
-The resultant value we got for t was: src_python[:session *StroopData* :exports results :results raw]{round((np.average(incongruent)-np.average(congruent))/math.sqrt((incongruent.std()/incongruent.shape[0])+(congruent.std()/congruent.shape[0])), 3)}, p<.05, indicating there is a significant difference between the congruent and incongruent means at the 95% confidence interval.
+The resultant value we got for t was: src_python[:session *StroopData* :exports results :results raw]{round((np.average(incongruent)-np.average(congruent))/math.sqrt((incongruent.std()/incongruent.shape[0])+(congruent.std()/congruent.shape[0])),3)}, p<.05, indicating there is a significant difference between the congruent and incongruent means at the 95% confidence interval.
 
 
 ***  Collect data into a dataframe:
@@ -114,7 +114,7 @@ plt.plot(incongruent_x, m*incongruent_x + b)
 plt.xticks(np.arange(1, 21, 1.0))
 plt.legend(["Congruent Stimulus", "Incongruent Stimulus"])
 plt.title("Stroop Responses Scatter Plot")
-plt.xlabel("Trial Number in Experiment")
+plt.xlabel("Word Occurence In Test")
 plt.ylabel("Response Time(ms)")
 plt.savefig("StroopPlotScatter.jpg")
 "StroopPlotScatter.jpg"
