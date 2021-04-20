@@ -26,12 +26,12 @@
 
 
 ** Introduction
-John Ridley Stroop published the groundbreaking, "Studies of interference in serial verbal ractions" in the Journal of Experimental Psychology in 1935 \cite{Stroop1935}. Ever since, psychology students worldwide learn about the "Stroop effect", where incongruent stimuli take longer to process than do congruent stimuli. Even though Stroop wasn't the first to publish this effect, his experiments were foundational; his original study is one of the most-cited papers in the history of experimental psychology \cite{MacLeod1991Stroop}.
+John Ridley Stroop published the groundbreaking, "Studies of interference in serial verbal reactions" in the Journal of Experimental Psychology in 1935 \cite{Stroop1935}. Ever since, psychology students worldwide learn about the "Stroop effect", where incongruent stimuli take longer to process than do congruent stimuli. Even though Stroop wasn't the first to publish this effect, his experiments were foundational; his original study is one of the most-cited papers in the history of experimental psychology \cite{MacLeod1991Stroop}.
 
 ** Methods
 There have been many variations on Stroop's experiment over the years. Since key presses are easier to time than a person reading aloud, we chose to go with a "manual" Stroop task where reaction time is measured by how long it takes a participant to press a certain key on a keyboard after being shown the stimuli on the computer screen. We used the psychopy library in python to program the experiment \cite{Peirce2019Psychopy} and followed the example shown in the demo Stroop task at psytoolkit.org \cite{PsytoolkitStroopDemo}. 
 
-Python was the only tool we used in our project, we used it to code our experiment and as our computational tool
+Python was the only tool we used in our project, we used it to code our experiment and as our computational tool. The python experiment that we coded in in the same folder as this and it is called StroopTest.py, feel free to give it a run!
 
 
 ** Results
@@ -50,7 +50,7 @@ Next we need to show that this value has some significance, and to do this we wi
 
 In the t-test above all the variables with a subsript of 1 relate to the incongruent results, and all the variables with a subscript of 2 relate to the congruent results. X is the mean of the data sets, $S^2$ is the standard deviation, and N is the number of elements in each set.
 
-The resultant value we got for t was: src_python[:session *StroopData* :exports results :results raw]{(np.average(incongruent)-np.average(congruent))/math.sqrt((incongruent.std()/incongruent.shape[0])+(congruent.std()/congruent.shape[0]))}
+The resultant value we got for t was: src_python[:session *StroopData* :exports results :results raw]{round((np.average(incongruent)-np.average(congruent))/math.sqrt((incongruent.std()/incongruent.shape[0])+(congruent.std()/congruent.shape[0])), 3)}, p<.05, indicating there is a significant difference between the congruent and incongruent means at the 95% confidence interval.
 
 
 ***  Collect data into a dataframe:
